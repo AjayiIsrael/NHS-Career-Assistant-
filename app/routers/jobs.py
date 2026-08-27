@@ -1,3 +1,4 @@
+from app.llm_service import generate_supporting_statement
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from app.qdrant_service import create_collection, add_job, match_cv_to_jobs
@@ -30,3 +31,19 @@ def match_jobs(cv: CVMatch):
     if not results:
         raise HTTPException(status_code=404, detail="No matching jobs found")
     return {"matches": results}
+class StatementRequest(BaseModel):
+    cv_text: str
+    job_description: str
+    word_count: int = 1000
+
+@router.post("/generate-statement")
+def generate_statement(request: StatementRequest):
+    result = generate_supporting_statement(
+        cv_text=request.cv_text,
+        job_description=request.job_description,
+        word_count=request.word_count
+    )
+    return {
+        "values_led": result["values_led"],
+        "evidence_led": result["evidence_led"]
+    }
