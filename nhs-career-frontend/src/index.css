@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    @apply bg-nhs-pale-grey/40 text-nhs-black font-sans antialiased;
+  }
+  * {
+    @apply border-slate-200;
+  }
+  ::selection {
+    @apply bg-nhs-blue/20;
+  }
+  h1, h2, h3, h4 {
+    @apply tracking-tight;
+  }
+}
+
+@layer components {
+  .nhs-card {
+    @apply rounded-2xl bg-white shadow-card ring-1 ring-slate-100;
+  }
+  .nhs-input {
+    @apply w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm text-nhs-black
+           placeholder:text-slate-400 transition
+           focus:border-nhs-blue focus:outline-none focus:ring-4 focus:ring-nhs-blue/15;
+  }
+  .nhs-label {
+    @apply mb-1.5 block text-sm font-semibold text-nhs-dark-grey;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold
+           transition-all duration-200 focus:outline-none focus:ring-4 disabled:cursor-not-allowed disabled:opacity-60;
+  }
+  .btn-primary {
+    @apply btn bg-nhs-blue text-white hover:bg-nhs-dark-blue focus:ring-nhs-blue/30 active:scale-[0.98]
+           shadow-[0_6px_16px_-6px_rgba(0,94,184,0.6)];
+  }
+  .btn-secondary {
+    @apply btn bg-white text-nhs-blue ring-1 ring-inset ring-nhs-blue/30 hover:bg-nhs-blue/5 focus:ring-nhs-blue/20;
+  }
+  .btn-ghost {
+    @apply btn bg-transparent text-nhs-dark-grey hover:bg-slate-100 focus:ring-slate-200;
+  }
+  .pill {
+    @apply inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold;
+  }
+}
+
+/* Thin, tasteful scrollbars */
+.scroll-slim::-webkit-scrollbar { width: 8px; height: 8px; }
+.scroll-slim::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+.scroll-slim::-webkit-scrollbar-track { background: transparent; }
+
+/* Loading skeleton shimmer */
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: #eef2f7;
+}
+.skeleton::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.65), transparent);
+  animation: shimmer 1.6s infinite;
+}
+@keyframes shimmer {
+  100% { transform: translateX(100%); }
+}
